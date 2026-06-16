@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"pnpm --filter server dev\" \"pnpm --filter client dev\"",
-    "build": "pnpm --filter client build",
+    "dev": "concurrently \"pnpm --filter ./server dev\" \"pnpm --filter ./client dev\"",
+    "build": "pnpm --filter ./client build",
     "start": "node server/src/index.js",
     "setup": "pnpm install && pnpm build"
   },
