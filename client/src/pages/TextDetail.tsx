@@ -3,8 +3,10 @@ import Loading from '../components/Loading';
 import api from '../services/api';
 import type { Text } from '../types';
 import { useParams, Link } from 'react-router-dom';
+import { useReveal } from '../hooks/useReveal';
 
 export default function TextDetail() {
+  const revealRef = useReveal<HTMLDivElement>();
   const { slug } = useParams<{ slug: string }>();
   const [text, setText] = React.useState<Text | null>(null);
   const [loading, setLoading] = React.useState(true);
@@ -34,7 +36,7 @@ export default function TextDetail() {
 
   return (
     <>
-      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-surface" dir="rtl">
+      <article ref={revealRef} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-surface reveal" dir="rtl">
         <div className="mb-8">
           <div className="flex flex-wrap gap-2 mb-4">
             <span className="inline-block px-3 py-1 text-xs rounded-full bg-accent-500/10 text-accent-400">{typeLabels[text.type] || text.type}</span>
@@ -58,7 +60,7 @@ export default function TextDetail() {
         {text.related && text.related.length > 0 && (
           <div className="mt-12 pt-8 border-t border-neutral-800">
             <h3 className="text-2xl font-amiri font-bold text-neutral-50 mb-6">نصوص ذات صلة</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 stagger-fade">
               {text.related.map((r) => (
                 <Link key={r.id} to={`/texts/${r.slug}`} className="bg-surface-elevated border border-neutral-800 rounded-xl p-4 hover:border-accent-500/30">
                   <h4 className="font-amiri font-bold text-neutral-50">{r.title}</h4>

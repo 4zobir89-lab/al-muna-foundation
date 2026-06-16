@@ -1,0 +1,12 @@
+{
+  "name": "مؤسسة المنى الإبداعية",
+  "short_name": "المنى",
+  "description": "منصة الأدب والإبداع العربي",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0C0A09",
+  "theme_color": "#0C0A09",
+  "orientation": "portrait-primary",
+  "dir": "rtl",
+  "lang": "ar"
+}

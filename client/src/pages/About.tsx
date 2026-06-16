@@ -1,7 +1,9 @@
 import React from 'react';
 import api from '../services/api';
+import { useReveal } from '../hooks/useReveal';
 
 export default function About() {
+  const revealRef = useReveal<HTMLDivElement>();
   const [settings, setSettings] = React.useState<Record<string, string>>({});
 
   React.useEffect(() => {
@@ -10,7 +12,7 @@ export default function About() {
 
   return (
     <>
-      <section className="py-20 bg-surface" dir="rtl">
+      <section ref={revealRef} className="py-20 bg-surface reveal" dir="rtl">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-amiri font-bold text-neutral-50 mb-8 text-center">عن المؤسسة</h1>
           <div className="bg-surface-card rounded-xl border border-neutral-800 p-8 md:p-12">

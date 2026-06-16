@@ -3,8 +3,10 @@ import HeroSection from '../components/HeroSection';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 import type { Text, Author, Category, Event as EventType } from '../types';
+import { useReveal } from '../hooks/useReveal';
 
 export default function Home() {
+  const revealRef = useReveal<HTMLDivElement>();
   const [featuredTexts, setFeaturedTexts] = React.useState<Text[]>([]);
   const [featuredAuthors, setFeaturedAuthors] = React.useState<Author[]>([]);
   const [categories, setCategories] = React.useState<Category[]>([]);
@@ -35,7 +37,7 @@ export default function Home() {
   );
 
   return (
-    <>
+    <div ref={revealRef} className="reveal">
       <HeroSection title="مؤسسة المنى الإبداعية" subtitle="حيث يلتقي الإبداع بالكلمة، وتنطلق الأفكار نحو آفاق جديدة" />
       <section className="py-16 bg-cream-50" dir="rtl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,6 +115,6 @@ export default function Home() {
           </div>
         </section>
       )}
-    </>
+    </div>
   );
 }

@@ -3,12 +3,14 @@ import HeroSection from '../components/HeroSection';
 import api from '../services/api';
 import type { Text, Category } from '../types';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useReveal } from '../hooks/useReveal';
 
 const typeLabels: Record<string, string> = {
   poem: 'شعر', story: 'قصة', article: 'مقال', novel: 'رواية', prose: 'نثر', other: 'نص',
 };
 
 export default function Archive() {
+  const revealRef = useReveal<HTMLDivElement>();
   const [searchParams, setSearchParams] = useSearchParams();
   const [texts, setTexts] = React.useState<Text[]>([]);
   const [categories, setCategories] = React.useState<Category[]>([]);
@@ -44,7 +46,7 @@ export default function Archive() {
   return (
     <>
       <HeroSection title="الأرشيف الأدبي" subtitle="استكشف مجموعة واسعة من النصوص الإبداعية المصنفة" height="h-[40vh]" />
-      <section className="py-16 bg-surface-DEFAULT" dir="rtl">
+      <section ref={revealRef} className="py-16 bg-surface-DEFAULT reveal" dir="rtl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-4 mb-10">
             <input type="text" value={search} onChange={(e) => setSearch(e.target.value)}
@@ -72,7 +74,7 @@ export default function Archive() {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-fade">
                 {texts.map((text) => (
                   <Link key={text.id} to={`/texts/${text.slug}`}
                     className="group bg-surface-card border border-neutral-800 rounded-xl p-6 hover:border-accent-500/30 transition-all duration-300">

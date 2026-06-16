@@ -3,8 +3,10 @@ import HeroSection from '../components/HeroSection';
 import api from '../services/api';
 import type { Text } from '../types';
 import { Link } from 'react-router-dom';
+import { useReveal } from '../hooks/useReveal';
 
 export default function Magazine() {
+  const revealRef = useReveal<HTMLDivElement>();
   const [texts, setTexts] = React.useState<Text[]>([]);
   const [loading, setLoading] = React.useState(true);
 
@@ -17,7 +19,7 @@ export default function Magazine() {
   return (
     <>
       <HeroSection title="مجلة المؤسسة" subtitle="إصدارات دورية ومقالات مختارة" height="h-[40vh]" />
-      <section className="py-16 bg-surface-DEFAULT" dir="rtl">
+      <section ref={revealRef} className="py-16 bg-surface-DEFAULT reveal" dir="rtl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {loading ? (
             <div className="flex justify-center py-20">
@@ -28,7 +30,7 @@ export default function Magazine() {
               <p className="text-neutral-400 text-lg">قريباً.. إصدارات المجلة</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 stagger-fade">
               {texts.map((text, i) => (
                 <Link key={text.id} to={`/texts/${text.slug}`}
                   className={`group bg-surface-card border border-neutral-800 rounded-xl overflow-hidden hover:border-accent-500/30 transition-all duration-300 ${i === 0 ? 'md:col-span-2 md:grid md:grid-cols-2' : ''}`}>

@@ -3,8 +3,10 @@ import HeroSection from '../components/HeroSection';
 import api from '../services/api';
 import type { Author } from '../types';
 import { Link } from 'react-router-dom';
+import { useReveal } from '../hooks/useReveal';
 
 export default function Authors() {
+  const revealRef = useReveal<HTMLDivElement>();
   const [authors, setAuthors] = React.useState<Author[]>([]);
   const [loading, setLoading] = React.useState(true);
 
@@ -15,12 +17,12 @@ export default function Authors() {
   return (
     <>
       <HeroSection title="المؤلفون" subtitle="تعرف على كتابنا ومبدعينا" height="h-[40vh]" />
-      <section className="py-12 bg-surface" dir="rtl">
+      <section ref={revealRef} className="py-12 bg-surface reveal" dir="rtl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {loading ? <div className="text-center py-16 text-neutral-400">جارٍ التحميل...</div> : authors.length === 0 ? (
             <div className="text-center py-16"><p className="text-neutral-400 text-lg">لا يوجد مؤلفون</p></div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-fade">
               {authors.map((author) => (
                 <Link key={author.id} to={`/authors/${author.slug}`} className="bg-surface-card border border-neutral-800 rounded-xl group p-6 hover:border-accent-500/30 flex gap-4">
                   <div className="w-20 h-20 rounded-full overflow-hidden bg-neutral-800 border-2 border-neutral-700 flex-shrink-0">

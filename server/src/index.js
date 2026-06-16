@@ -57,6 +57,10 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+app.get('/manifest.json', (req, res) => {
+  res.sendFile(join(clientDist, '..', 'public', 'manifest.json'));
+});
+
 app.get('*', (req, res) => {
   if (!req.path.startsWith('/api/')) {
     res.sendFile(join(clientDist, 'index.html'));

@@ -3,8 +3,10 @@ import HeroSection from '../components/HeroSection';
 import api from '../services/api';
 import type { Text, Category, TextType } from '../types';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useReveal } from '../hooks/useReveal';
 
 export default function Texts() {
+  const revealRef = useReveal<HTMLDivElement>();
   const [searchParams, setSearchParams] = useSearchParams();
   const [texts, setTexts] = React.useState<Text[]>([]);
   const [categories, setCategories] = React.useState<Category[]>([]);
@@ -40,7 +42,7 @@ export default function Texts() {
   return (
     <>
       <HeroSection title="النصوص" subtitle="استكشف مجموعة واسعة من النصوص الإبداعية" height="h-[40vh]" />
-      <section className="py-12 bg-surface" dir="rtl">
+      <section ref={revealRef} className="py-12 bg-surface reveal" dir="rtl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-4 mb-8">
             <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="ابحث عن نص..." className="bg-surface-card border-neutral-800 rounded-lg px-4 py-3 text-neutral-50 focus:border-accent-500 focus:ring-1 focus:ring-accent-500/30 outline-none flex-1" />
@@ -57,7 +59,7 @@ export default function Texts() {
           {loading ? <div className="text-center py-16 text-neutral-400">جارٍ التحميل...</div> : texts.length === 0 ? (
             <div className="text-center py-16"><p className="text-neutral-400 text-lg">لا توجد نصوص</p></div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-fade">
               {texts.map((text) => (
                 <Link key={text.id} to={`/texts/${text.slug}`} className="bg-surface-card border border-neutral-800 rounded-xl group p-6 hover:border-accent-500/30">
                   <span className="inline-block px-3 py-1 text-xs rounded-full bg-accent-500/10 text-accent-400 mb-3">{typeLabels[text.type] || text.type}</span>

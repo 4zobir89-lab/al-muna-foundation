@@ -3,12 +3,14 @@ import HeroSection from '../components/HeroSection';
 import api from '../services/api';
 import type { Text, Category } from '../types';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useReveal } from '../hooks/useReveal';
 
 const typeLabels: Record<string, string> = {
   poem: 'شعر', story: 'قصة', article: 'مقال', novel: 'رواية', prose: 'نثر', other: 'نص',
 };
 
 export default function Search() {
+  const revealRef = useReveal<HTMLDivElement>();
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = React.useState(searchParams.get('q') || '');
   const [results, setResults] = React.useState<Text[]>([]);
@@ -39,7 +41,7 @@ export default function Search() {
   return (
     <>
       <HeroSection title="البحث" subtitle="ابحث في النصوص والكتّاب والأرشيف الأدبي" height="h-[35vh]" />
-      <section className="py-16 bg-surface-DEFAULT" dir="rtl">
+      <section ref={revealRef} className="py-16 bg-surface-DEFAULT reveal" dir="rtl">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <form onSubmit={doSearch} className="mb-10">
             <div className="flex flex-col md:flex-row gap-4 mb-4">
@@ -79,7 +81,7 @@ export default function Search() {
                 <p className="text-neutral-400 mb-6 text-sm">
                   {results.length} نتيجة لـ "{query}"
                 </p>
-                <div className="space-y-4">
+                <div className="space-y-4 stagger-fade">
                   {results.map((text) => (
                     <Link key={text.id} to={`/texts/${text.slug}`}
                       className="block bg-surface-card border border-neutral-800 rounded-xl p-5 hover:border-accent-500/30 transition-all duration-300">
