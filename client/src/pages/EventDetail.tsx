@@ -14,18 +14,18 @@ export default function EventDetail() {
   }, [slug]);
 
   if (loading) return <Loading />;
-  if (!event) return <div className="text-center py-20 text-dark-400" dir="rtl">الفعالية غير موجودة</div>;
+  if (!event) return <div className="text-center py-20 text-neutral-400" dir="rtl">الفعالية غير موجودة</div>;
 
   return (
     <>
-      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12" dir="rtl">
+      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-surface" dir="rtl">
         {event.image && <img src={event.image} alt={event.title} className="w-full h-64 md:h-80 object-cover rounded-2xl mb-8" />}
-        <h1 className="text-3xl md:text-5xl font-amiri font-bold text-dark-900 mb-4">{event.title}</h1>
-        <div className="flex flex-wrap gap-4 text-sm text-dark-400 mb-6">
+        <h1 className="text-3xl md:text-5xl font-amiri font-bold text-neutral-50 mb-4">{event.title}</h1>
+        <div className="flex flex-wrap gap-4 text-sm text-neutral-400 mb-6">
           <span>📅 {new Date(event.start_date).toLocaleDateString('ar-SA')}{event.end_date ? ` - ${new Date(event.end_date).toLocaleDateString('ar-SA')}` : ''}</span>
           {event.location && <span>📍 {event.location}</span>}
         </div>
-        {event.description && <div className="prose prose-lg max-w-none font-noto leading-relaxed text-dark-800 whitespace-pre-line">{event.description}</div>}
+        {event.description && <div className="prose prose-lg max-w-none font-tajawal leading-relaxed text-neutral-200 prose-headings:text-neutral-50 whitespace-pre-line">{event.description}</div>}
       </article>
     </>
   );

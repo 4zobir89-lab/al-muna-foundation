@@ -6,14 +6,15 @@ import { authenticate } from '../middleware/auth.js';
 const router = Router();
 
 router.get('/', (req, res) => {
-  const { page = 1, limit = 12, type, author_id, category_id, search, featured } = req.query;
+  const { page = 1, limit = 12, type, author_id, category_id, search, q, featured } = req.query;
+  const keyword = search || q;
   const offset = (page - 1) * limit;
   let where = ['is_published = 1'];
   let params = [];
   if (type) { where.push('t.type = ?'); params.push(type); }
   if (author_id) { where.push('t.author_id = ?'); params.push(author_id); }
   if (category_id) { where.push('t.category_id = ?'); params.push(category_id); }
-  if (search) { where.push('(t.title LIKE ? OR t.excerpt LIKE ?)'); params.push(`%${search}%`, `%${search}%`); }
+  if (keyword) { where.push('(t.title LIKE ? OR t.excerpt LIKE ? OR a.name LIKE ?)'); params.push(`%${keyword}%`, `%${keyword}%`, `%${keyword}%`); }
   if (featured === 'true') where.push('t.is_featured = 1');
   const whereClause = where.length ? 'WHERE ' + where.join(' AND ') : 'WHERE 1=1';
 

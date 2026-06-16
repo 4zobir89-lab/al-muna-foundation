@@ -12,6 +12,10 @@ import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Archive from './pages/Archive';
+import Creators from './pages/Creators';
+import Search from './pages/Search';
+import Magazine from './pages/Magazine';
 import Dashboard from './pages/admin/Dashboard';
 import TextManager from './pages/admin/TextManager';
 import AuthorsManager from './pages/admin/AuthorsManager';
@@ -34,6 +38,11 @@ export default function App() {
         <Route path="/events/:id" element={<EventDetail />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/archive" element={<Archive />} />
+        <Route path="/creators" element={<Creators />} />
+        <Route path="/creators/:id" element={<AuthorDetail />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/magazine" element={<Magazine />} />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
