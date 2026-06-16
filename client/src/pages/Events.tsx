@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from '../components/Layout';
 import HeroSection from '../components/HeroSection';
 import api from '../services/api';
 import type { Event as EventType } from '../types';
@@ -14,7 +13,7 @@ export default function Events() {
   }, []);
 
   return (
-    <Layout>
+    <>
       <HeroSection title="الفعاليات" subtitle="تابع فعالياتنا وأنشطتنا القادمة" height="h-[40vh]" />
       <section className="py-12 bg-cream-50" dir="rtl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,6 +38,6 @@ export default function Events() {
           )}
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

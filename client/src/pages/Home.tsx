@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from '../components/Layout';
 import HeroSection from '../components/HeroSection';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
@@ -36,7 +35,7 @@ export default function Home() {
   );
 
   return (
-    <Layout transparentNav>
+    <>
       <HeroSection title="مؤسسة المنى الإبداعية" subtitle="حيث يلتقي الإبداع بالكلمة، وتنطلق الأفكار نحو آفاق جديدة" />
       <section className="py-16 bg-cream-50" dir="rtl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -114,6 +113,6 @@ export default function Home() {
           </div>
         </section>
       )}
-    </Layout>
+    </>
   );
 }

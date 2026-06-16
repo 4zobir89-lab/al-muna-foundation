@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from '../components/Layout';
 import HeroSection from '../components/HeroSection';
 import api from '../services/api';
 import type { Text, Category, TextType } from '../types';
@@ -39,7 +38,7 @@ export default function Texts() {
   const handleSearch = (e: React.FormEvent) => { e.preventDefault(); setPage(1); };
 
   return (
-    <Layout>
+    <>
       <HeroSection title="النصوص" subtitle="استكشف مجموعة واسعة من النصوص الإبداعية" height="h-[40vh]" />
       <section className="py-12 bg-cream-50" dir="rtl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,6 +78,6 @@ export default function Texts() {
           )}
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

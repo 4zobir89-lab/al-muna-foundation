@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from '../components/Layout';
 import Loading from '../components/Loading';
 import api from '../services/api';
 import type { Event as EventType } from '../types';
@@ -14,11 +13,11 @@ export default function EventDetail() {
     api.get(`/events/${slug}`).then((res) => setEvent(res.data)).catch(console.error).finally(() => setLoading(false));
   }, [slug]);
 
-  if (loading) return <Layout><Loading /></Layout>;
-  if (!event) return <Layout><div className="text-center py-20 text-dark-400" dir="rtl">الفعالية غير موجودة</div></Layout>;
+  if (loading) return <Loading />;
+  if (!event) return <div className="text-center py-20 text-dark-400" dir="rtl">الفعالية غير موجودة</div>;
 
   return (
-    <Layout>
+    <>
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12" dir="rtl">
         {event.image && <img src={event.image} alt={event.title} className="w-full h-64 md:h-80 object-cover rounded-2xl mb-8" />}
         <h1 className="text-3xl md:text-5xl font-amiri font-bold text-dark-900 mb-4">{event.title}</h1>
@@ -28,6 +27,6 @@ export default function EventDetail() {
         </div>
         {event.description && <div className="prose prose-lg max-w-none font-noto leading-relaxed text-dark-800 whitespace-pre-line">{event.description}</div>}
       </article>
-    </Layout>
+    </>
   );
 }

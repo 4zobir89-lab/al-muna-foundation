@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from '../components/Layout';
 import Loading from '../components/Loading';
 import api from '../services/api';
 import type { Author } from '../types';
@@ -14,11 +13,11 @@ export default function AuthorDetail() {
     api.get(`/authors/${slug}`).then((res) => setAuthor(res.data)).catch(console.error).finally(() => setLoading(false));
   }, [slug]);
 
-  if (loading) return <Layout><Loading /></Layout>;
-  if (!author) return <Layout><div className="text-center py-20 text-dark-400" dir="rtl">المؤلف غير موجود</div></Layout>;
+  if (loading) return <Loading />;
+  if (!author) return <div className="text-center py-20 text-dark-400" dir="rtl">المؤلف غير موجود</div>;
 
   return (
-    <Layout>
+    <>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12" dir="rtl">
         <div className="flex flex-col md:flex-row gap-8 mb-12">
           <div className="w-48 h-48 rounded-2xl overflow-hidden bg-brown-100 flex-shrink-0 mx-auto md:mx-0">
@@ -48,6 +47,6 @@ export default function AuthorDetail() {
           </div>
         )}
       </div>
-    </Layout>
+    </>
   );
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from '../components/Layout';
 import api from '../services/api';
 
 export default function Contact() {
@@ -22,7 +21,7 @@ export default function Contact() {
   };
 
   return (
-    <Layout>
+    <>
       <section className="py-20 bg-cream-50" dir="rtl">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-amiri font-bold text-dark-900 mb-8 text-center">اتصل بنا</h1>
@@ -47,6 +46,6 @@ export default function Contact() {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

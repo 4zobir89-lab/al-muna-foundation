@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from '../components/Layout';
 import HeroSection from '../components/HeroSection';
 import api from '../services/api';
 import type { Author } from '../types';
@@ -14,7 +13,7 @@ export default function Authors() {
   }, []);
 
   return (
-    <Layout>
+    <>
       <HeroSection title="المؤلفون" subtitle="تعرف على كتابنا ومبدعينا" height="h-[40vh]" />
       <section className="py-12 bg-cream-50" dir="rtl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,6 +37,6 @@ export default function Authors() {
           )}
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

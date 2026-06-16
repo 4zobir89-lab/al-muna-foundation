@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from '../components/Layout';
 import api from '../services/api';
 
 export default function About() {
@@ -10,7 +9,7 @@ export default function About() {
   }, []);
 
   return (
-    <Layout>
+    <>
       <section className="py-20 bg-cream-50" dir="rtl">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-amiri font-bold text-dark-900 mb-8 text-center">عن المؤسسة</h1>
@@ -25,6 +24,6 @@ export default function About() {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }

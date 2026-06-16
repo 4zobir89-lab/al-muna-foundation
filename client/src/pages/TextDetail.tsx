@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from '../components/Layout';
 import Loading from '../components/Loading';
 import api from '../services/api';
 import type { Text } from '../types';
@@ -14,13 +13,13 @@ export default function TextDetail() {
     api.get(`/texts/${slug}`).then((res) => setText(res.data)).catch(console.error).finally(() => setLoading(false));
   }, [slug]);
 
-  if (loading) return <Layout><Loading /></Layout>;
-  if (!text) return <Layout><div className="text-center py-20 text-dark-400" dir="rtl">النص غير موجود</div></Layout>;
+  if (loading) return <Loading />;
+  if (!text) return <div className="text-center py-20 text-dark-400" dir="rtl">النص غير موجود</div>;
 
   const typeLabels: Record<string, string> = { poem: 'قصيدة', story: 'قصة', article: 'مقال', novel: 'رواية', prose: 'نثر', other: 'نص' };
 
   return (
-    <Layout>
+    <>
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12" dir="rtl">
         <div className="mb-8">
           <div className="flex flex-wrap gap-2 mb-4">
@@ -53,6 +52,6 @@ export default function TextDetail() {
           </div>
         )}
       </article>
-    </Layout>
+    </>
   );
 }
