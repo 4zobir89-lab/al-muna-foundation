@@ -27,6 +27,32 @@ function persist() {
   fs.writeFileSync(dbPath, Buffer.from(data));
 }
 
+function freeStmt(s) {
+  if (s && s.Qa) try { s.free(); } catch (_) {}
+}
+
+function useOne(name, sql, params, mode) {
+  const s = sqlJsDb.prepare(sql);
+  try {
+    if (params.length > 0) s.bind(params);
+    if (mode === 'run') {
+      s.step();
+    } else if (mode === 'get') {
+      if (s.step()) {
+        const row = s.getAsObject();
+        return row;
+      }
+      return undefined;
+    } else {
+      const rows = [];
+      while (s.step()) rows.push(s.getAsObject());
+      return rows;
+    }
+  } finally {
+    freeStmt(s);
+  }
+}
+
 const compat = {
   pragma(str) {
     sqlJsDb.run(`PRAGMA ${str}`);
@@ -37,33 +63,18 @@ const compat = {
     return result;
   },
   prepare(sql) {
-    const s = sqlJsDb.prepare(sql);
     return {
       run(...params) {
-        if (params.length > 0) s.bind(params);
-        s.step();
-        s.reset();
+        useOne('run', sql, params, 'run');
+        const rid = sqlJsDb.exec("SELECT last_insert_rowid()");
         persist();
-        return { lastInsertRowid: Number(s.getInsertId()) };
+        return { lastInsertRowid: Number(rid?.[0]?.values?.[0]?.[0] ?? 0) };
       },
       get(...params) {
-        if (params.length > 0) s.bind(params);
-        if (s.step()) {
-          const row = s.getAsObject();
-          s.reset();
-          return row;
-        }
-        s.reset();
-        return undefined;
+        return useOne('get', sql, params, 'get');
       },
       all(...params) {
-        if (params.length > 0) s.bind(params);
-        const rows = [];
-        while (s.step()) {
-          rows.push(s.getAsObject());
-        }
-        s.reset();
-        return rows;
+        return useOne('all', sql, params, 'all');
       }
     };
   }
