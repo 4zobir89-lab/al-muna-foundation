@@ -1,5 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import AdminLayout from './pages/admin/AdminLayout';
 import Login from './pages/admin/Login';
@@ -24,33 +23,29 @@ import MediaManager from './pages/admin/MediaManager';
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/texts" element={<Texts />} />
-            <Route path="/texts/:id" element={<TextDetail />} />
-            <Route path="/authors" element={<Authors />} />
-            <Route path="/authors/:id" element={<AuthorDetail />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/events/:id" element={<EventDetail />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-          </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
-            <Route index element={<Dashboard />} />
-            <Route path="texts" element={<TextManager />} />
-            <Route path="authors" element={<AuthorsManager />} />
-            <Route path="categories" element={<CategoriesManager />} />
-            <Route path="events" element={<EventsManager />} />
-            <Route path="messages" element={<MessagesManager />} />
-            <Route path="settings" element={<SettingsManager />} />
-            <Route path="media" element={<MediaManager />} />
-          </Route>
-        </Routes>
-      </AuthProvider>
-    </BrowserRouter>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/texts" element={<Texts />} />
+        <Route path="/texts/:id" element={<TextDetail />} />
+        <Route path="/authors" element={<Authors />} />
+        <Route path="/authors/:id" element={<AuthorDetail />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/events/:id" element={<EventDetail />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Route>
+      <Route path="/login" element={<Login />} />
+      <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
+        <Route index element={<Dashboard />} />
+        <Route path="texts" element={<TextManager />} />
+        <Route path="authors" element={<AuthorsManager />} />
+        <Route path="categories" element={<CategoriesManager />} />
+        <Route path="events" element={<EventsManager />} />
+        <Route path="messages" element={<MessagesManager />} />
+        <Route path="settings" element={<SettingsManager />} />
+        <Route path="media" element={<MediaManager />} />
+      </Route>
+    </Routes>
   );
 }
