@@ -69,6 +69,6 @@ app.use((err, req, res, next) => {
 migrate();
 seed();
 
-app.listen(config.port, () => {
+app.listen(config.port, '0.0.0.0', () => {
   console.log(`Al-Muna server running on port ${config.port}`);
 });
